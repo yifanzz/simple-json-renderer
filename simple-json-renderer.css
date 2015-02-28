@@ -1,0 +1,59 @@
+.expandable-list {
+  font-family:"Lucida Console", Monaco, monospace;
+  font-size:10pt;
+}
+
+.expandable-list ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  margin: 5px 20px;
+  display: none;
+}
+
+.expandable-list .expanded ~ ul {
+  display: block;
+}
+
+.expandable-list li > span:first-child + ul {
+  display: block;
+}
+
+.expandable-list  > ul {
+  display: block;
+}
+
+.expandable-list .expanded:before {
+  content: "";
+}
+
+.expandable-list a:before {
+  content: "";
+}
+
+.expandable-list .value > a:before {
+  content: "";
+}
+
+.expandable-list .array > a + span:after {
+  content: "...";
+}
+
+.expandable-list .object > a + span:after {
+  content: "...";
+}
+
+.expandable-list a.expanded + span:after {
+  content: ""
+}
+
+.expandable-list a {
+    cursor: pointer;
+}
+
+.expandable-list li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 3px;
+}
