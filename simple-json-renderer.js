@@ -1,53 +1,61 @@
 var renderObject = (function (d3, _) {
 
-  function renderObj(obj) {
-    var elem = d3.select(this)
+  return function (selector, obj) {
+    var elem = d3.select(selector)
+    elem.selectAll('*').remove()
+    elem
+      .classed('expandable-list', true)
+      .each(_.partial(renderBlob, obj))
+  }
 
+  function renderBlob(obj) {
     if (_.isPlainObject(obj)) {
-      elem.classed('object', true)
-      elem.append('span').text('{')
-      var list = elem.append('ul')
-
-      _.forEach(obj, function (value, key) {
-        var item = list.append('li')
-        item.append('a')
-          .text(key + ' : ')
-          .on('click', toggleExpandedState)
-
-        item.each(_.partial(renderObj, value))
-      })
-      elem.append('span').text('}')
-
+      renderPlainObject.call(this, obj);
     } else if (_.isArray(obj)) {
-
-      elem.classed('array', true)
-      elem.append('span').text('[')
-      var list = elem.append('ul')
-      _.forEach(obj, function (value, key) {
-        list.append('li')
-          .each(_.partial(renderObj, value))
-      })
-      elem.append('span').text(']')
-
+      renderArray.call(this, obj);
     } else {
-      elem.classed('value', true)
-      elem.append('i')
-        .text(obj)
+      renderValue.call(this, obj);
     }
+  }
+
+  function renderPlainObject(obj) {
+    var elem = d3.select(this)
+    elem.classed('object', true)
+    elem.append('span').text('{')
+    var list = elem.append('ul')
+
+    _.forEach(obj, function (value, key) {
+      var item = list.append('li')
+      item.append('a')
+        .text(key + ' : ')
+        .on('click', toggleExpandedState)
+
+      item.each(_.partial(renderBlob, value))
+    })
+    elem.append('span').text('}')
+  }
+
+  function renderArray(obj) {
+    var elem = d3.select(this)
+    elem.classed('array', true)
+    elem.append('span').text('[')
+    var list = elem.append('ul')
+    _.forEach(obj, function (value, key) {
+      list.append('li')
+        .each(_.partial(renderBlob, value))
+    })
+    elem.append('span').text(']')
+  }
+
+  function renderValue(obj) {
+    var elem = d3.select(this)
+    elem.classed('value', true)
+    elem.append('i')
+      .text(obj)
   }
 
   function toggleExpandedState() {
     var listHeader = d3.select(this)
     listHeader.classed('expanded', !listHeader.classed('expanded'))
-  }
-
-  return function (selector, obj) {
-    var elem = d3.select(selector)
-
-    elem.selectAll('*').remove()
-
-    elem
-      .classed('expandable-list', true)
-      .each(_.partial(renderObj, obj))
   }
 })(d3, _)
