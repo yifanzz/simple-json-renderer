@@ -1,6 +1,6 @@
 # simple-json-renderer
 
-A simple JSON renderer that utilises d3 to render
+A simple JSON renderer. Take a look at this [sample](http://yifanzz.github.io/simple-json-renderer/sample.html)
 
 ##How to use
 
