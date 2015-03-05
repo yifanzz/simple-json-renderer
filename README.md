@@ -4,10 +4,10 @@ A simple JSON renderer. Take a look at this [sample](http://yifanzz.github.io/si
 
 ##How to use
 
-Include the `simple-json-renderer.js` and `simple-json-renderer.css` in your html. Or you may choose to use the cdn links provided by the nice people at RawGit :
+Include the `simple-json-renderer.js` and `simple-json-renderer.css` in your html. Or you may choose to use the cdn links provided by the nice people at RawGit and here are some code for copy and pasting:
 ```
-https://cdn.rawgit.com/yifanzz/simple-json-renderer/<version>/simple-json-renderer.js
-https://cdn.rawgit.com/yifanzz/simple-json-renderer/<version>/simple-json-renderer.css
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/yifanzz/simple-json-renderer/<version>/simple-json-renderer.css">
+<script src="https://cdn.rawgit.com/yifanzz/simple-json-renderer/<version>/simple-json-renderer.js"></script>
 ```
 
 There's only one function 
