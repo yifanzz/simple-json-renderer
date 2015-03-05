@@ -4,6 +4,8 @@ A simple JSON renderer. Take a look at this [sample](http://yifanzz.github.io/si
 
 ##How to use
 
+Include the `simple-json-renderer.js` and `simple-json-renderer.css` in your html.
+
 There's only one function 
 
 ```javascript
