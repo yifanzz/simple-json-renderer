@@ -4,7 +4,11 @@ A simple JSON renderer. Take a look at this [sample](http://yifanzz.github.io/si
 
 ##How to use
 
-Include the `simple-json-renderer.js` and `simple-json-renderer.css` in your html.
+Include the `simple-json-renderer.js` and `simple-json-renderer.css` in your html. Or you may choose to use the cdn links provided by the nice people at RawGit :
+```
+https://cdn.rawgit.com/yifanzz/simple-json-renderer/<version>/simple-json-renderer.js
+https://cdn.rawgit.com/yifanzz/simple-json-renderer/<version>/simple-json-renderer.css
+```
 
 There's only one function 
 
