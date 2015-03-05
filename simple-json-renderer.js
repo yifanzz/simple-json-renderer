@@ -1,11 +1,10 @@
-var renderObject = (function (d3, _) {
+var renderObject = (function (_) {
 
   return function (selector, obj) {
-    var elem = d3.select(selector)
-    elem.selectAll('*').remove()
-    elem
-      .classed('expandable-list', true)
-      .each(_.partial(renderBlob, obj))
+    var elem = document.querySelector(selector)
+    elem.innerHTML = ''
+    addClass(elem, 'expandable-list')
+    renderBlob.call(elem, obj)
   }
 
   function renderBlob(obj) {
@@ -19,43 +18,72 @@ var renderObject = (function (d3, _) {
   }
 
   function renderPlainObject(obj) {
-    var elem = d3.select(this)
-    elem.classed('object', true)
-    elem.append('span').text('{')
-    var list = elem.append('ul')
+    addClass(this, 'object')
+    this.appendChild(createNode('span', '{'))
+    var list = createNode('ul')
 
     _.forEach(obj, function (value, key) {
-      var item = list.append('li')
-      item.append('a')
-        .text(key + ' : ')
-        .on('click', toggleExpandedState)
+      var item = createNode('li')
+      list.appendChild(item)
 
-      item.each(_.partial(renderBlob, value))
+      var itemKey = createNode('a')
+      item.appendChild(itemKey)
+
+      itemKey.text = key + ' : '
+      itemKey.addEventListener('click', toggleExpandedState)
+
+      renderBlob.call(item, value)
     })
-    elem.append('span').text('}')
+    this.appendChild(list)
+    this.appendChild(createNode('span', '}'))
   }
 
   function renderArray(obj) {
-    var elem = d3.select(this)
-    elem.classed('array', true)
-    elem.append('span').text('[')
-    var list = elem.append('ul')
+    addClass(this, 'array')
+    this.appendChild(createNode('span', '['))
+    var list = createNode('ul')
     _.forEach(obj, function (value, key) {
-      list.append('li')
-        .each(_.partial(renderBlob, value))
+      var item = createNode('li')
+      renderBlob.call(item, value)
+      list.appendChild(item)
     })
-    elem.append('span').text(']')
+    this.appendChild(list)
+    this.appendChild(createNode('span', ']'))
   }
 
   function renderValue(obj) {
-    var elem = d3.select(this)
-    elem.classed('value', true)
-    elem.append('i')
-      .text(obj)
+    addClass(this, 'value')
+    this.appendChild(createNode('i', obj))
+  }
+
+  function createNode(tagName, text) {
+    var elem = document.createElement(tagName)
+    elem.text = text
+    elem.textContent = text
+    return elem
   }
 
   function toggleExpandedState() {
-    var listHeader = d3.select(this)
-    listHeader.classed('expanded', !listHeader.classed('expanded'))
+    toggleClass(this, 'expanded')
   }
-})(d3, _)
+
+  function toggleClass(node, className) {
+    if (hasClass(node, className)) {
+      removeClass(node, className)
+    } else {
+      addClass(node, className)
+    }
+  }
+
+  function addClass(node, className) {
+    node.className += ' ' + className
+  }
+
+  function removeClass(node, className) {
+    node.className = node.className.replace(new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'g') , '' )
+  }
+
+  function hasClass(node, className) {
+    return node.className.match(new RegExp('(?:^|\\s)' + className + '(?!\\S)'))
+  }
+})(_)
