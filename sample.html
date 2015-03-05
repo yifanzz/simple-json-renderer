@@ -3,14 +3,38 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
     <link rel="stylesheet" href="simple-json-renderer.css"/>
     <script src="https://rawgit.com/lodash/lodash/3.0.1/lodash.min.js"></script>
     <script src="simple-json-renderer.js"></script>
 </head>
 <body>
+<div class="container">
+<h5>Original Object</h5>
+<pre style="background: rgba(255,255,255,0.7)">
+[
+    112121,
+    {
+        justAValue: 2,
+        object: {
+            objectInsideAObject: {
+                someAttr: 3
+            }
+        },
+        array: [
+            true,
+            {
+                attrOfObjInArray: 5
+            }
+        ],
+        yetAnotherAttribute: 15
+    }
+]
+</pre>
 
+<h5>Rendered</h5>
 <div id="container"></div>
-
+</div>
 <script>
     var obj = [
         112121,{
